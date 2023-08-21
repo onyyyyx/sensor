@@ -1,26 +1,12 @@
-input.onButtonPressed(Button.A, function () {
-    if (number) {
-        number = false
-    } else {
-        number = true
-    }
-})
-input.onButtonPressed(Button.B, function () {
-    sensor += 1
-    sensor = sensor % 5
-    number = false
-})
-let number = false
 let sensor = 0
-sensor = 0
-number = true
+let number = true
 let height = 0
 basic.forever(function () {
     if (sensor == 0) {
         if (number) {
             height = input.temperature() * 5 / 50
         } else {
-            basic.showString("" + input.temperature() + "°C")
+            basic.showString("" + input.temperature() + "C")
         }
     } else if (sensor == 1) {
         if (number) {
@@ -47,6 +33,22 @@ basic.forever(function () {
             basic.showString("" + (input.acceleration(Dimension.X)))
         }
     }
+})
+basic.forever(function () {
+    if (input.buttonIsPressed(Button.B)) {
+        if (number) {
+            number = false
+        } else {
+            number = true
+        }
+    }
+    if (input.buttonIsPressed(Button.A)) {
+        sensor += 1
+        sensor = sensor % 5
+        number = false
+    }
+})
+basic.forever(function () {
     if (height <= 0) {
         basic.showLeds(`
             . . . . .
